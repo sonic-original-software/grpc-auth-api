@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.1.2 - 2026-08-14
+#### Bug Fixes
+- need to move implementation code into this package - (e14203c) - Nathan Blair
+
+- - -
+
 ## 0.1.1 - 2026-08-14
 #### Bug Fixes
 - TODO README - (2496578) - Nathan Blair
