@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.0 - 2026-08-14
+#### Features
+- building in more auth api messages and services - (6bd28dc) - Nathan Blair
+
+- - -
+
 ## 0.1.2 - 2026-08-14
 #### Bug Fixes
 - need to move implementation code into this package - (e14203c) - Nathan Blair
