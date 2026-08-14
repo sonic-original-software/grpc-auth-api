@@ -9,29 +9,29 @@ option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 // TokenService handles Token operations
 service TokenService {
   // Issue a signed JWT
-  rpc Issue(IssueRequest) returns (IssueResponse);
+  rpc IssueToken(IssueTokenRequest) returns (IssueTokenResponse);
 
   // Decode and validate JWT, returning claims
-  rpc Decode(DecodeRequest) returns (DecodeResponse);
+  rpc DecodeToken(DecodeTokenRequest) returns (DecodeTokenResponse);
 }
 
 // Issue a signed JWT
-message IssueRequest {
+message IssueTokenRequest {
   string subject = 1;
   repeated string audience = 2;
   int64 expires_at = 3; // Optional - If empty, doesn't expire
   int64 not_before = 4; // Optional - If empty, set to now
 }
 
-message IssueResponse {
+message IssueTokenResponse {
   string token = 1;
 }
 
 // Decode JWT into claims
-message DecodeRequest {
+message DecodeTokenRequest {
   string token = 1;
 }
 
-message DecodeResponse {
+message DecodeTokenResponse {
   jwt.Claims claims = 1;
 }

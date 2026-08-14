@@ -9,25 +9,25 @@ option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 // WebAuthnService handles WebAuthn/Passkey identity verification
 service WebAuthnService {
   // BeginRegistration starts WebAuthn registration (returns challenge)
-  rpc BeginRegistration(BeginRegistrationRequest) returns (BeginRegistrationResponse);
+  rpc BeginWebAuthnRegistration(BeginWebAuthnRegistrationRequest) returns (BeginWebAuthnRegistrationResponse);
 
   // FinishRegistration completes registration and creates principal
-  rpc FinishRegistration(FinishRegistrationRequest) returns (FinishRegistrationResponse);
+  rpc FinishWebAuthnRegistration(FinishWebAuthnRegistrationRequest) returns (FinishWebAuthnRegistrationResponse);
 
   // BeginLogin starts WebAuthn authentication (returns challenge)
-  rpc BeginLogin(BeginLoginRequest) returns (BeginLoginResponse);
+  rpc BeginWebAuthnLogin(BeginWebAuthnLoginRequest) returns (BeginWebAuthnLoginResponse);
 
   // FinishLogin completes authentication and returns access token
-  rpc FinishLogin(FinishLoginRequest) returns (FinishLoginResponse);
+  rpc FinishWebAuthnLogin(FinishWebAuthnLoginRequest) returns (FinishWebAuthnLoginResponse);
 
   // Add additional WebAuthn credential to authenticated principal's account
-  rpc AddCredential(AddCredentialRequest) returns (AddCredentialResponse);
+  rpc AddWebAuthnCredential(AddWebAuthnCredentialRequest) returns (AddWebAuthnCredentialResponse);
 
   // List all WebAuthn credentials for authenticated principal
-  rpc ListCredentials(ListCredentialsRequest) returns (ListCredentialsResponse);
+  rpc ListWebAuthnCredentials(ListWebAuthnCredentialsRequest) returns (ListWebAuthnCredentialsResponse);
 
   // Delete a specific WebAuthn credential (revoke compromised authenticator)
-  rpc DeleteCredential(DeleteCredentialRequest) returns (DeleteCredentialResponse);
+  rpc DeleteWebAuthnCredential(DeleteWebAuthnCredentialRequest) returns (DeleteWebAuthnCredentialResponse);
 }
 
 // CredentialFlags contains authenticator flags
@@ -98,7 +98,7 @@ message WebAuthnCredential {
 }
 
 // Begin WebAuthn registration
-message BeginRegistrationRequest {
+message BeginWebAuthnRegistrationRequest {
   // Optional user name (e.g., username or email)
   string name = 1;
   // Optional display name for UI presentation
@@ -106,7 +106,7 @@ message BeginRegistrationRequest {
   // NOTE: user.id is always server-generated from principal ID, never client-provided
 }
 
-message BeginRegistrationResponse {
+message BeginWebAuthnRegistrationResponse {
   // Challenge options to send to browser (JSON-encoded CredentialCreationOptions)
   bytes options = 1;
   // Session token for completing registration (stateless session via JWT)
@@ -114,21 +114,21 @@ message BeginRegistrationResponse {
 }
 
 // Finish WebAuthn registration
-message FinishRegistrationRequest {
+message FinishWebAuthnRegistrationRequest {
   // WebAuthn credential data from browser
   bytes credential_data = 1;
   // Session token from BeginRegistration
   string session_token = 2;
 }
 
-message FinishRegistrationResponse {
+message FinishWebAuthnRegistrationResponse {
   jwt.Claims claims = 1;
 }
 
 // Begin WebAuthn login
-message BeginLoginRequest {}
+message BeginWebAuthnLoginRequest {}
 
-message BeginLoginResponse {
+message BeginWebAuthnLoginResponse {
   // Challenge options to send to browser (JSON-encoded CredentialRequestOptions)
   bytes options = 1;
   // Session token for completing login
@@ -136,40 +136,40 @@ message BeginLoginResponse {
 }
 
 // Finish WebAuthn login
-message FinishLoginRequest {
+message FinishWebAuthnLoginRequest {
   // Assertion data from browser
   bytes assertion_data = 1;
   // Session token from BeginLogin
   string session_token = 2;
 }
 
-message FinishLoginResponse {
+message FinishWebAuthnLoginResponse {
   jwt.Claims claims = 1;
 }
 
 // Add credential request
-message AddCredentialRequest {
+message AddWebAuthnCredentialRequest {
   // WebAuthn credential data from browser (contains credential_id, public_key, etc.)
   bytes credential_data = 1;
 }
 
 // Add credential response
-message AddCredentialResponse {
+message AddWebAuthnCredentialResponse {
   bool success = 1;
 }
 
 // List credentials request
-message ListCredentialsRequest {}
+message ListWebAuthnCredentialsRequest {}
 
-message ListCredentialsResponse {
+message ListWebAuthnCredentialsResponse {
   repeated WebAuthnCredential credentials = 1;
 }
 
 // Delete credential request
-message DeleteCredentialRequest {
+message DeleteWebAuthnCredentialRequest {
   string credential_id = 1;
 }
 
-message DeleteCredentialResponse {
+message DeleteWebAuthnCredentialResponse {
   bool success = 1;
 }

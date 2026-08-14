@@ -9,22 +9,22 @@ option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 // PrincipalService handles principal management operations
 service PrincipalService {
   // Create a new principal
-  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc CreatePrincipal(CreatePrincipalRequest) returns (CreatePrincipalResponse);
 
   // Delete principal
-  rpc Delete(DeleteRequest) returns (DeleteResponse);
+  rpc DeletePrincipal(DeletePrincipalRequest) returns (DeletePrincipalResponse);
 }
 
 // Create new principal
-message CreateRequest {}
+message CreatePrincipalRequest {}
 
-message CreateResponse {
+message CreatePrincipalResponse {
   Principal principal = 1;
 }
 
 // Delete principal
-message DeleteRequest {
+message DeletePrincipalRequest {
   Principal principal = 1;
 }
 
-message DeleteResponse {}
+message DeletePrincipalResponse {}
