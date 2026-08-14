@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.1 - 2026-08-14
+#### Bug Fixes
+- better module naming - (6ae4c3e) - Nathan Blair
+
+- - -
+
 ## 0.2.0 - 2026-08-14
 #### Features
 - building in more auth api messages and services - (6bd28dc) - Nathan Blair
