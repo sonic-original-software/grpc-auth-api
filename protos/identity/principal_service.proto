@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package identity;
+
+import "identity/principal.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+
+// PrincipalService handles principal management operations
+service PrincipalService {
+  // Create a new principal
+  rpc Create(CreateRequest) returns (CreateResponse);
+
+  // Delete principal
+  rpc Delete(DeleteRequest) returns (DeleteResponse);
+}
+
+// Create new principal
+message CreateRequest {}
+
+message CreateResponse {
+  Principal principal = 1;
+}
+
+// Delete principal
+message DeleteRequest {
+  Principal principal = 1;
+}
+
+message DeleteResponse {}

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package token;
+
+import "jwt/claims.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+
+// TokenService handles Token operations
+service TokenService {
+  // Issue a signed JWT
+  rpc Issue(IssueRequest) returns (IssueResponse);
+
+  // Decode and validate JWT, returning claims
+  rpc Decode(DecodeRequest) returns (DecodeResponse);
+}
+
+// Issue a signed JWT
+message IssueRequest {
+  string subject = 1;
+  repeated string audience = 2;
+  int64 expires_at = 3; // Optional - If empty, doesn't expire
+  int64 not_before = 4; // Optional - If empty, set to now
+}
+
+message IssueResponse {
+  string token = 1;
+}
+
+// Decode JWT into claims
+message DecodeRequest {
+  string token = 1;
+}
+
+message DecodeResponse {
+  jwt.Claims claims = 1;
+}

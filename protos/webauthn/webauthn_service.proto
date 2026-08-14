@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package webauthn;
+
+import "jwt/claims.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+
+// WebAuthnService handles WebAuthn/Passkey identity verification
+service WebAuthnService {
+  // BeginRegistration starts WebAuthn registration (returns challenge)
+  rpc BeginRegistration(BeginRegistrationRequest) returns (BeginRegistrationResponse);
+
+  // FinishRegistration completes registration and creates principal
+  rpc FinishRegistration(FinishRegistrationRequest) returns (FinishRegistrationResponse);
+
+  // BeginLogin starts WebAuthn authentication (returns challenge)
+  rpc BeginLogin(BeginLoginRequest) returns (BeginLoginResponse);
+
+  // FinishLogin completes authentication and returns access token
+  rpc FinishLogin(FinishLoginRequest) returns (FinishLoginResponse);
+
+  // Add additional WebAuthn credential to authenticated principal's account
+  rpc AddCredential(AddCredentialRequest) returns (AddCredentialResponse);
+
+  // List all WebAuthn credentials for authenticated principal
+  rpc ListCredentials(ListCredentialsRequest) returns (ListCredentialsResponse);
+
+  // Delete a specific WebAuthn credential (revoke compromised authenticator)
+  rpc DeleteCredential(DeleteCredentialRequest) returns (DeleteCredentialResponse);
+}
+
+// CredentialFlags contains authenticator flags
+message CredentialFlags {
+  // User present (UP) - user was present during authentication
+  bool user_present = 1;
+  // User verified (UV) - user was verified (biometric, PIN, etc.)
+  bool user_verified = 2;
+  // Backup eligible (BE) - credential can be backed up
+  bool backup_eligible = 3;
+  // Backup state (BS) - credential is currently backed up
+  bool backup_state = 4;
+}
+
+// Authenticator information for a credential
+message Authenticator {
+  // AAGUID - Authenticator Attestation GUID
+  bytes aaguid = 1;
+  // Sign counter for replay attack detection
+  int64 sign_count = 2;
+  // Clone warning - if true, possible cloned authenticator detected
+  bool clone_warning = 3;
+  // Attachment type (platform, cross-platform)
+  string attachment = 4;
+}
+
+// CredentialAttestation contains attestation data from registration
+message CredentialAttestation {
+  // Attestation object - CBOR encoded attestation data
+  bytes object = 1;
+  // Client data JSON from registration
+  bytes client_data_json = 2;
+}
+
+// WebAuthn credential for passkey authentication
+message WebAuthnCredential {
+  // Credential ID - unique identifier for this credential
+  string credential_id = 1;
+
+  // Public key for signature verification
+  bytes public_key = 2;
+
+  // Attestation type (e.g., "packed", "fido-u2f", "none")
+  string attestation_type = 3;
+
+  // Transport methods supported by this authenticator
+  // Values from WebAuthn spec: "usb", "nfc", "ble", "internal", "hybrid", "smart-card"
+  // Forward-compatible with future transport types
+  repeated string transport = 4;
+
+  // Authenticator flags
+  CredentialFlags flags = 5;
+
+  // Authenticator information
+  Authenticator authenticator = 6;
+
+  // Attestation data (can be omitted if attestation_type is "none")
+  CredentialAttestation attestation = 7;
+
+  // Human-readable name for this credential (e.g., "YubiKey 5", "iPhone 15")
+  string name = 8;
+
+  // When this credential was created
+  int64 created_at = 9;
+
+  // Last time this credential was used for authentication
+  int64 last_used_at = 10;
+}
+
+// Begin WebAuthn registration
+message BeginRegistrationRequest {
+  // Optional user name (e.g., username or email)
+  string name = 1;
+  // Optional display name for UI presentation
+  string display_name = 2;
+  // NOTE: user.id is always server-generated from principal ID, never client-provided
+}
+
+message BeginRegistrationResponse {
+  // Challenge options to send to browser (JSON-encoded CredentialCreationOptions)
+  bytes options = 1;
+  // Session token for completing registration (stateless session via JWT)
+  string session_token = 2;
+}
+
+// Finish WebAuthn registration
+message FinishRegistrationRequest {
+  // WebAuthn credential data from browser
+  bytes credential_data = 1;
+  // Session token from BeginRegistration
+  string session_token = 2;
+}
+
+message FinishRegistrationResponse {
+  jwt.Claims claims = 1;
+}
+
+// Begin WebAuthn login
+message BeginLoginRequest {}
+
+message BeginLoginResponse {
+  // Challenge options to send to browser (JSON-encoded CredentialRequestOptions)
+  bytes options = 1;
+  // Session token for completing login
+  string session_token = 2;
+}
+
+// Finish WebAuthn login
+message FinishLoginRequest {
+  // Assertion data from browser
+  bytes assertion_data = 1;
+  // Session token from BeginLogin
+  string session_token = 2;
+}
+
+message FinishLoginResponse {
+  jwt.Claims claims = 1;
+}
+
+// Add credential request
+message AddCredentialRequest {
+  // WebAuthn credential data from browser (contains credential_id, public_key, etc.)
+  bytes credential_data = 1;
+}
+
+// Add credential response
+message AddCredentialResponse {
+  bool success = 1;
+}
+
+// List credentials request
+message ListCredentialsRequest {}
+
+message ListCredentialsResponse {
+  repeated WebAuthnCredential credentials = 1;
+}
+
+// Delete credential request
+message DeleteCredentialRequest {
+  string credential_id = 1;
+}
+
+message DeleteCredentialResponse {
+  bool success = 1;
+}

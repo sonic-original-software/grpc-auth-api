@@ -4,9 +4,9 @@ plugins:
   - remote: buf.build/protocolbuffers/go
     out: go
     opt:
-      - module=git.sonicoriginal.software/grpc-jwt
+      - module=git.sonicoriginal.software/grpc-auth
 
   - remote: buf.build/grpc/go
     out: go
     opt:
-      - module=git.sonicoriginal.software/grpc-jwt
+      - module=git.sonicoriginal.software/grpc-auth

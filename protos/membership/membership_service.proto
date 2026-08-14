@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package membership;
+
+import "identity/principal.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+
+// MembershipService manages principal group membership relationships
+service MembershipService {
+  // Add a principal as a member of a group
+  rpc AddMember(AddMemberRequest) returns (AddMemberResponse);
+
+  // Remove a principal from a group
+  rpc RemoveMember(RemoveMemberRequest) returns (RemoveMemberResponse);
+
+  // Get direct members of a group (non-transitive)
+  rpc GetDirectMembers(GetDirectMembersRequest) returns (GetDirectMembersResponse);
+
+  // Get all members of a group (transitive - includes nested groups)
+  rpc GetAllMembers(GetAllMembersRequest) returns (GetAllMembersResponse);
+
+  // Get direct groups a principal belongs to (non-transitive)
+  rpc GetDirectGroups(GetDirectGroupsRequest) returns (GetDirectGroupsResponse);
+
+  // Get all groups a principal belongs to (transitive)
+  rpc GetAllGroups(GetAllGroupsRequest) returns (GetAllGroupsResponse);
+
+  // Check if a principal is a member of a group (transitive)
+  rpc IsMember(IsMemberRequest) returns (IsMemberResponse);
+
+  // List all groups (principals that have at least one member)
+  rpc ListGroups(ListGroupsRequest) returns (ListGroupsResponse);
+}
+
+// Add member to group
+message AddMemberRequest {
+  identity.Principal group_principal_id = 1;
+  identity.Principal member_principal_id = 2;
+}
+
+message AddMemberResponse {
+  bool success = 1;
+}
+
+// Remove member from group
+message RemoveMemberRequest {
+  identity.Principal group_principal_id = 1;
+  identity.Principal member_principal_id = 2;
+}
+
+message RemoveMemberResponse {
+  bool success = 1;
+}
+
+// Get direct members of a group
+message GetDirectMembersRequest {
+  identity.Principal group_principal_id = 1;
+}
+
+message GetDirectMembersResponse {
+  repeated identity.Principal member_principal_ids = 1;
+}
+
+// Get all members of a group
+message GetAllMembersRequest {
+  identity.Principal group_principal_id = 1;
+}
+
+message GetAllMembersResponse {
+  repeated identity.Principal member_principal_ids = 1;
+}
+
+// Get direct groups a principal belongs to
+message GetDirectGroupsRequest {
+  identity.Principal member_principal_id = 1;
+}
+
+message GetDirectGroupsResponse {
+  repeated identity.Principal group_principal_ids = 1;
+}
+
+// Get all groups a principal belongs to
+message GetAllGroupsRequest {
+  identity.Principal member_principal_id = 1;
+}
+
+message GetAllGroupsResponse {
+  repeated identity.Principal group_principal_ids = 1;
+}
+
+// Check if principal is member of group
+message IsMemberRequest {
+  identity.Principal group_principal_id = 1;
+  identity.Principal member_principal_id = 2;
+}
+
+message IsMemberResponse {
+  bool is_member = 1;
+}
+
+// List all groups
+message ListGroupsRequest {}
+
+message ListGroupsResponse {
+  repeated identity.Principal group_principal_ids = 1;
+}
