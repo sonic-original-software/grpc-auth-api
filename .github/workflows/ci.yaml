@@ -16,15 +16,9 @@ jobs:
     name: CI
     uses: katastroma/skeuotheke/.github/workflows/version-check.yaml@v0
 
-  ci-go:
-    name: CI
-    uses: katastroma/skeuotheke/.github/workflows/ci-go.yaml@v0
-    with:
-      working_directory: go
-
   version:
     name: CI
-    needs: [commit-check, version-check, ci-go]
+    needs: [commit-check, version-check]
     uses: katastroma/skeuotheke/.github/workflows/version.yaml@v0
     permissions:
       contents: write
