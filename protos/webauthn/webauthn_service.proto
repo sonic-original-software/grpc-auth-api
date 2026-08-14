@@ -4,7 +4,7 @@ package webauthn;
 
 import "jwt/claims.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 
 // WebAuthnService handles WebAuthn/Passkey identity verification
 service WebAuthnService {

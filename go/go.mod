@@ -1,4 +1,4 @@
-module git.sonicoriginal.software/grpc-auth
+module git.sonicoriginal.software/grpc-auth-api
 
 go 1.26.5
 

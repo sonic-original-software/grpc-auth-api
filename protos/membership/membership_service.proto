@@ -4,7 +4,7 @@ package membership;
 
 import "identity/principal.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 
 // MembershipService manages principal group membership relationships
 service MembershipService {

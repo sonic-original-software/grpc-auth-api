@@ -4,7 +4,7 @@ package identity;
 
 import "identity/principal.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 
 // PrincipalService handles principal management operations
 service PrincipalService {

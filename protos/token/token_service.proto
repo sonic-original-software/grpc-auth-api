@@ -4,7 +4,7 @@ package token;
 
 import "jwt/claims.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
 
 // TokenService handles Token operations
 service TokenService {
