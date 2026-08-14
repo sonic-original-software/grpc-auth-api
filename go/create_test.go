@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 
-	libjwt "api/lib/jwt"
+	libjwt "git.sonicoriginal.software/grpc-jwt"
 )
 
 // CreateTestJWT creates a signed JWT with the given signing method and claims.

@@ -10,7 +10,7 @@ import (
 	"encoding/pem"
 	"testing"
 
-	libjwt "api/lib/jwt"
+	libjwt "git.sonicoriginal.software/grpc-jwt"
 
 	"github.com/golang-jwt/jwt/v5"
 )

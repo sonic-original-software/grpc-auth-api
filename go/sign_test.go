@@ -8,7 +8,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 
-	libjwt "api/lib/jwt"
+	libjwt "git.sonicoriginal.software/grpc-jwt"
 )
 
 func TestSign_Success(t *testing.T) {

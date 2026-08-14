@@ -4,7 +4,7 @@ package jwt_test
 import (
 	"time"
 
-	libjwt "api/lib/jwt"
+	libjwt "git.sonicoriginal.software/grpc-jwt"
 )
 
 // CreateTestClaims creates test claims with sensible defaults.

@@ -7,7 +7,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"api/lib/jwt/validate"
+	"git.sonicoriginal.software/grpc-jwt/validate"
 
 	"git.sonicoriginal.software/grpc-foundation/errors"
 )
