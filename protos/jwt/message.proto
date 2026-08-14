@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package lib.claims;
+package jwt;
 
-option go_package = "api/lib/claims";
+option go_package = "git.sonicoriginal.software/grpc-jwt;jwt";
 
 // Claims represents JWT claims for encoding
 message Claims {
