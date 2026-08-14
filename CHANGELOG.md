@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.2 - 2026-08-14
+#### Bug Fixes
+- use more of service context in rpcs - (e11e83c) - Nathan Blair
+
+- - -
+
 ## 0.2.1 - 2026-08-14
 #### Bug Fixes
 - better module naming - (6ae4c3e) - Nathan Blair
