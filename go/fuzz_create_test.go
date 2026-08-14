@@ -70,9 +70,6 @@ func FuzzCreate(f *testing.F) {
 				if claims == nil {
 					t.Fatal("got nil response with nil error")
 				}
-				if claims == nil {
-					t.Fatal("got nil claims in response")
-				}
 
 				// Verify claims fields match request
 				if claims.Sub != subject {
