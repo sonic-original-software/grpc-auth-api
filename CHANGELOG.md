@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.2.3 - 2026-08-29
+#### Bug Fixes
+- update dependencies - (771a723) - Nathan Blair
+#### Documentation
+- add auth system architecture documentation - (3887aea) - Nathan Blair
+
+- - -
+
 ## 0.2.2 - 2026-08-14
 #### Bug Fixes
 - use more of service context in rpcs - (e11e83c) - Nathan Blair
