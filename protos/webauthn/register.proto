@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package webauthn;
+
+import "identity/principal.proto";
+import "webauthn/authenticator.proto";
+import "webauthn/public_key_credential.proto";
+import "webauthn/relying_party.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/webauthn";
+
+message PublicKeyCredentialCreationOptions {
+  bytes challenge = 1;
+  uint32 timeout = 2;
+  PublicKeyCredentialRpEntity rp = 3;
+  identity.Principal user = 4;
+  repeated PublicKeyCredentialParameters pub_key_cred_params = 5;
+  repeated PublicKeyCredentialDescriptor exclude_credentials = 6;
+  AuthenticatorSelectionCriteria authenticator_selection = 7;
+  repeated string hints = 8;
+  AttestationConveyancePreference attestation = 9;
+  repeated string attestation_formats = 10;
+  bytes extensions = 11;
+}
+
+message RegisterRequest {
+  message RegisterStart {
+    string name = 1;
+    string display_name = 2;
+  }
+
+  message AttestationCredential {
+    bytes raw_id = 1;
+    PublicKeyCredentialType type = 2;
+    AuthenticatorAttachment authenticator_attachment = 3;
+    bytes client_extension_results = 4;
+    AuthenticatorAttestationResponse response = 5;
+  }
+
+  oneof message {
+    RegisterStart start = 1;
+    AttestationCredential credential = 2;
+  }
+}
+
+message RegisterResponse {
+  message RegisterResult {
+    identity.Principal principal = 1;
+    bytes grant = 2;
+  }
+
+  oneof message {
+    PublicKeyCredentialCreationOptions options = 1;
+    RegisterResult result = 2;
+  }
+}

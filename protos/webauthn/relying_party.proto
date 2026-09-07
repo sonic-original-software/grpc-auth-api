@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package webauthn;
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/webauthn";
+
+message PublicKeyCredentialRpEntity {
+  string id = 1;
+  string name = 2;
+}

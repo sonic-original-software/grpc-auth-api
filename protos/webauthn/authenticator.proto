@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package webauthn;
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/webauthn";
+
+enum AuthenticatorAttachment {
+  AUTHENTICATOR_ATTACHMENT_UNSPECIFIED = 0;
+  AUTHENTICATOR_ATTACHMENT_PLATFORM = 1;
+  AUTHENTICATOR_ATTACHMENT_CROSS_PLATFORM = 2;
+}
+
+enum ResidentKeyRequirement {
+  RESIDENT_KEY_REQUIREMENT_UNSPECIFIED = 0;
+  RESIDENT_KEY_REQUIREMENT_DISCOURAGED = 1;
+  RESIDENT_KEY_REQUIREMENT_PREFERRED = 2;
+  RESIDENT_KEY_REQUIREMENT_REQUIRED = 3;
+}
+
+enum UserVerificationRequirement {
+  USER_VERIFICATION_REQUIREMENT_UNSPECIFIED = 0;
+  USER_VERIFICATION_REQUIREMENT_DISCOURAGED = 1;
+  USER_VERIFICATION_REQUIREMENT_PREFERRED = 2;
+  USER_VERIFICATION_REQUIREMENT_REQUIRED = 3;
+}
+
+message AuthenticatorSelectionCriteria {
+  AuthenticatorAttachment authenticator_attachment = 1;
+  ResidentKeyRequirement resident_key = 2;
+  bool require_resident_key = 3;
+  UserVerificationRequirement user_verification = 4;
+}
+
+// Authenticator response to the registration ceremony
+message AuthenticatorAttestationResponse {
+  bytes client_data_json = 1;
+  bytes attestation_object = 2;
+  repeated string transports = 3;
+}
+
+// Authenticator response to the login ceremony
+message AuthenticatorAssertionResponse {
+  bytes client_data_json = 1;
+  bytes authenticator_data = 2;
+  bytes signature = 3;
+  bytes user_handle = 4;
+}

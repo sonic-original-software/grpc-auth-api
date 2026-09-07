@@ -2,11 +2,13 @@ syntax = "proto3";
 
 package identity;
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api/identity";
 
 // Principal represents the core identity of a principal in the system
-// A principal is purely an identifier - attributes like email and display_name
-// are stored and queried separately by the Principal service
 message Principal {
   string id = 1;
+  string name = 2;
+  string display_name = 3;
+  int64 creation_date = 4;
+  int64 last_authenticated_date = 5;
 }

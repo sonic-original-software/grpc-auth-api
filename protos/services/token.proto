@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package token;
+package services;
 
-import "jwt/claims.proto";
+import "token/jwt.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
 
 // TokenService handles Token operations
 service TokenService {
@@ -18,9 +18,8 @@ service TokenService {
 // Issue a signed JWT
 message IssueTokenRequest {
   string subject = 1;
-  repeated string audience = 2;
-  int64 expires_at = 3; // Optional - If empty, doesn't expire
-  int64 not_before = 4; // Optional - If empty, set to now
+  int64 expires_at = 2; // Optional - If empty, doesn't expire
+  int64 not_before = 3; // Optional - If empty, set to now
 }
 
 message IssueTokenResponse {
@@ -33,5 +32,5 @@ message DecodeTokenRequest {
 }
 
 message DecodeTokenResponse {
-  jwt.Claims claims = 1;
+  token.JWT token = 1;
 }

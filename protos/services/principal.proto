@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package identity;
+package services;
 
 import "identity/principal.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
 
 // PrincipalService handles principal management operations
 service PrincipalService {
@@ -19,12 +19,12 @@ service PrincipalService {
 message CreatePrincipalRequest {}
 
 message CreatePrincipalResponse {
-  Principal principal = 1;
+  identity.Principal principal = 1;
 }
 
 // Delete principal
 message DeletePrincipalRequest {
-  Principal principal = 1;
+  identity.Principal principal = 1;
 }
 
 message DeletePrincipalResponse {}

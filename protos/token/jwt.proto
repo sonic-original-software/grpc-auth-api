@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package jwt;
+package token;
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api/token";
 
-// Claims represents JWT claims for encoding
-message Claims {
+// JWT holds claims for encoding
+message JWT {
   // Subject (JWT "sub") - the principal_id this credential represents
   string sub = 1;
 
@@ -15,15 +15,12 @@ message Claims {
   // Issuer (JWT "iss") - who issued this token
   string iss = 3;
 
-  // Expiration time (JWT "exp") - Unix timestamp (0 = never expires)
-  int64 exp = 4;
+  // Expiration time (JWT "exp") - Unix timestamp (unset = never expires)
+  optional int64 exp = 4;
 
   // Issued at (JWT "iat") - Unix timestamp
   int64 iat = 5;
 
   // Not before (JWT "nbf") - Unix timestamp
-  int64 nbf = 6;
-
-  // JWT ID (JWT "jti") - unique identifier for this credential
-  string jti = 7;
+  optional int64 nbf = 6;
 }

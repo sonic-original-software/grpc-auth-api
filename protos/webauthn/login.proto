@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package webauthn;
+
+import "identity/principal.proto";
+import "webauthn/authenticator.proto";
+import "webauthn/public_key_credential.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/webauthn";
+
+message PublicKeyCredentialRequestOptions {
+  bytes challenge = 1;
+  uint32 timeout = 2;
+  string rp_id = 3;
+  repeated PublicKeyCredentialDescriptor allow_credentials = 4;
+  UserVerificationRequirement user_verification = 5;
+  repeated string hints = 6;
+  bytes extensions = 7;
+}
+
+message LoginRequest {
+  message LoginStart {}
+
+  message AssertionCredential {
+    bytes raw_id = 1;
+    PublicKeyCredentialType type = 2;
+    AuthenticatorAttachment authenticator_attachment = 3;
+    bytes client_extension_results = 4;
+    AuthenticatorAssertionResponse response = 5;
+  }
+
+  oneof message {
+    LoginStart start = 1;
+    AssertionCredential credential = 2;
+  }
+}
+
+message LoginResponse {
+  message LoginResult {
+    identity.Principal principal = 1;
+    bytes grant = 2;
+  }
+
+  oneof message {
+    PublicKeyCredentialRequestOptions options = 1;
+    LoginResult result = 2;
+  }
+}

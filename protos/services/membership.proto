@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package membership;
+package services;
 
 import "identity/principal.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api;authapi";
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
 
 // MembershipService manages principal group membership relationships
 service MembershipService {

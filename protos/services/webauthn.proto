@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package services;
+
+import "webauthn/login.proto";
+import "webauthn/register.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
+
+// WebAuthnService handles WebAuthn/Passkey identity verification
+service WebAuthnService {
+  // Run the webauthn registration ceremony
+  rpc Register(stream webauthn.RegisterRequest) returns (stream webauthn.RegisterResponse);
+
+  // Run the webauthn login ceremony
+  rpc Login(stream webauthn.LoginRequest) returns (stream webauthn.LoginResponse);
+}
