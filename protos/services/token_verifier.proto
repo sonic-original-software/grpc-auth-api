@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package services;
+
+import "token/jwt.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
+
+// TokenVerifierService handles token verification operations
+service TokenVerifierService {
+  // Decode and validate JWT, returning claims
+  rpc DecodeToken(DecodeTokenRequest) returns (DecodeTokenResponse);
+}
+
+// Decode JWT into claims
+message DecodeTokenRequest {
+  string token = 1;
+}
+
+message DecodeTokenResponse {
+  token.JWT token = 1;
+}

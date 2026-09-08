@@ -70,21 +70,33 @@ it, and only a grant passes the comparison.
 ClearGrant(principalId, grant) → cleared or refused
 ```
 
-The service computes the digest of the presented grant and clears the
-principal's `grantHash` to NULL, conditional on the stored value still equalling
-that digest. It refuses when no record exists, when the stored value is NULL,
-and when the stored value differs from the computed digest.
+The service computes the SHA-256 digest of the presented grant. It then requests
+one compare-and-swap, which the store performs as a single atomic operation
+carrying out these steps in order:
 
-The method takes the grant rather than its digest so that clearing requires what
-minting requires. A caller holding only the value `GetGrantHash` answers with
-destroys nothing.
+```text
+read the stored grantHash
+compare it to the computed digest
+write NULL when the two are equal, and write nothing when they differ
+```
 
-The conditional is what makes a grant single-use, and it holds against a grant
-written between another caller's read and its clear.
+No other writer reads or changes `grantHash` between those steps. A store that
+performed the read and the write as separate operations would leave a window in
+which another writer could replace the value the comparison approved.
 
-The comparison here gates the clear. It establishes nothing about which subject
-a token names, which is why the issuer performs its own, as
-[Redemption](./grant.md#redemption) defines.
+The atomic operation reports whether it wrote, and `ClearGrant` answers with that
+report.
+
+The service refuses when no record exists, when the stored value is NULL, or when
+the atomic operation reports that it did not write.
+
+The method takes the grant rather than its digest because
+[GetGrantHash](#getgranthash) answers any caller. Accepting a digest would let a
+caller read a principal's digest and clear the grant that produced it.
+
+The compare-and-swap is what makes a grant single-use. A swap that writes nothing
+means another flow wrote a new grant after this caller read the field, and that
+new grant survives for the holder it was issued to.
 
 Both methods are publicly reachable. Neither answers usefully to a caller
 without the grant.
@@ -92,12 +104,16 @@ without the grant.
 ## DeletePrincipal
 
 ```text
-DeletePrincipal(token) → ()
+DeletePrincipal(principalId) → ()
 ```
 
-The caller presents a token. The service verifies it through
-[Token Verifier](./token-verifier.md) and deletes the principal its `sub` names.
-A caller deletes only the principal it holds a token for.
+The service deletes the principal named by `principalId`.
+
+Every request carries an authenticated requester, established before it reaches
+this service. The service acts on that requester's authority and refuses a
+request carrying none, or one whose requester is not authorized to delete the
+named principal. The named principal is the requester or any other principal
+that authorization covers.
 
 The delete cascades to every credential record referencing that principal, and
 the principal and those records are removed in one atomic operation.
@@ -105,4 +121,4 @@ the principal and those records are removed in one atomic operation.
 reference to the principal a stored constraint, so a delete that removed the
 principal alone would leave that constraint unsatisfied.
 
-The service refuses a token that fails verification.
+The service refuses a request naming a principal with no record.

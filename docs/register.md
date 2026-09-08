@@ -123,7 +123,8 @@ authenticatorSelection.requireResidentKey = true
 
 `user` carries the principal record's fields, and this response precedes the
 record. Its `creationDate` and `lastAuthenticatedDate` are therefore unset and
-carry no meaning here. [Atomic Persistence](#atomic-persistence) establishes both.
+carry no meaning here. [Atomic Persistence](#atomic-persistence) establishes
+both.
 
 `excludeCredentials[]` is empty. Register creates a new principal on every call
 and has no identified principal whose existing credentials could populate the
@@ -211,10 +212,9 @@ extensions
 ```
 
 `signCount` is a 32-bit unsigned big-endian integer. Fields following it are
-interpreted according to the `authData` flags.
-The parsing result retains the exact original `clientDataJSON` and
-`attestationObject` bytes, and the exact original `authData` bytes as
-`authDataBytes`.
+interpreted according to the `authData` flags. The parsing result retains the
+exact original `clientDataJSON` and `attestationObject` bytes, and the exact
+original `authData` bytes as `authDataBytes`.
 
 The handler computes the SHA-256 hash of the exact `response.clientDataJSON`
 bytes as `clientDataHash` and retains it for
@@ -316,8 +316,8 @@ atomic operation also stores the optional `rpId` field:
 rpId = rp.id issued for this registration
 ```
 
-The registration timestamp is the UNIX timestamp the handler computes immediately
-before requesting the atomic operation. `creationDate` and
+The registration timestamp is the UNIX timestamp the handler computes
+immediately before requesting the atomic operation. `creationDate` and
 `lastAuthenticatedDate` both hold that value, so a principal that has never
 logged in reports the moment it was registered.
 

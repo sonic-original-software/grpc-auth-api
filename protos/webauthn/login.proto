@@ -3,6 +3,7 @@ syntax = "proto3";
 package webauthn;
 
 import "identity/principal.proto";
+import "token/grant.proto";
 import "webauthn/authenticator.proto";
 import "webauthn/public_key_credential.proto";
 
@@ -38,7 +39,7 @@ message LoginRequest {
 message LoginResponse {
   message LoginResult {
     identity.Principal principal = 1;
-    bytes grant = 2;
+    token.Grant grant = 2;
   }
 
   oneof message {

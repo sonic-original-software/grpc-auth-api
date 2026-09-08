@@ -62,12 +62,12 @@ comparison rather than receiving its result. The stored hash may travel to reach
 it, since a hash yields nothing without the grant that produced it.
 
 On a match the issuer asks the Principal Service to clear the field, supplying
-the grant. That service hashes it again and clears only while the stored value
-still equals the result, so clearing costs what minting costs and no caller
-destroys a pending grant it could not have redeemed. The mint follows a
-successful clear. When the clear does not land, another operation changed the
-field between the read and the clear, and the issuer refuses. Single use rests
-on that conditional clear, so an issuer that cannot establish it mints nothing.
+the grant. That service hashes it again and performs the compare-and-swap defined
+by [ClearGrant](./principal.md#cleargrant), so clearing costs what minting costs
+and no caller destroys a pending grant it could not have redeemed. The issuer
+mints after `ClearGrant` succeeds. When `ClearGrant` refuses, another operation
+replaced the field after the issuer read it, and the issuer mints nothing. Single
+use rests on that compare-and-swap.
 
 Reading precedes clearing, so a presented grant that does not match leaves the
 stored one intact and no caller can destroy a pending grant by presenting

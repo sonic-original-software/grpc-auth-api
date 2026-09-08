@@ -3,6 +3,7 @@ syntax = "proto3";
 package webauthn;
 
 import "identity/principal.proto";
+import "token/grant.proto";
 import "webauthn/authenticator.proto";
 import "webauthn/public_key_credential.proto";
 import "webauthn/relying_party.proto";
@@ -46,7 +47,7 @@ message RegisterRequest {
 message RegisterResponse {
   message RegisterResult {
     identity.Principal principal = 1;
-    bytes grant = 2;
+    token.Grant grant = 2;
   }
 
   oneof message {

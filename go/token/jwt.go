@@ -28,7 +28,7 @@ func (t *JWT) GetExpirationTime() (*jwt.NumericDate, error) {
 	if t.Exp == nil {
 		return nil, nil
 	}
-	return jwt.NewNumericDate(time.Unix(*t.Exp, 0)), nil
+	return jwt.NewNumericDate(time.Unix(t.GetExp(), 0)), nil
 }
 
 // GetIssuedAt implements jwt.Claims.GetIssuedAt
@@ -42,5 +42,5 @@ func (t *JWT) GetNotBefore() (*jwt.NumericDate, error) {
 	if t.Nbf == nil {
 		return nil, nil
 	}
-	return jwt.NewNumericDate(time.Unix(*t.Nbf, 0)), nil
+	return jwt.NewNumericDate(time.Unix(t.GetNbf(), 0)), nil
 }

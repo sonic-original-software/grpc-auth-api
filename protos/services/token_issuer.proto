@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package services;
+
+import "token/grant.proto";
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
+
+// TokenIssuerService handles Token issuance operations
+service TokenIssuerService {
+  // Issue a signed JWT
+  rpc IssueToken(IssueTokenRequest) returns (IssueTokenResponse);
+}
+
+// Issue a signed JWT
+message IssueTokenRequest {
+  string subject = 1;
+  token.Grant grant = 2;
+  optional int64 expires_at = 3; // Optional - If empty, doesn't expire
+  optional int64 not_before = 4; // Optional - If empty, set to now
+}
+
+message IssueTokenResponse {
+  string token = 1;
+}

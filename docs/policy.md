@@ -16,8 +16,8 @@ configuration validated for that ceremony. Policy holds no ceremony state and
 never parses a ceremony message.
 
 Every query answers `true` or `false`. A `false` answer fails the ceremony,
-except for [uvInitialized Transition](#uvinitialized-transition), which decides a
-field write.
+except for [uvInitialized Transition](#uvinitialized-transition), which decides
+a field write.
 
 A query whose control is disabled answers `true`.
 

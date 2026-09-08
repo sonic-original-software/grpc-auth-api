@@ -3,23 +3,20 @@ syntax = "proto3";
 package services;
 
 import "identity/principal.proto";
+import "token/grant.proto";
 
 option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
 
 // PrincipalService handles principal management operations
 service PrincipalService {
-  // Create a new principal
-  rpc CreatePrincipal(CreatePrincipalRequest) returns (CreatePrincipalResponse);
-
   // Delete principal
   rpc DeletePrincipal(DeletePrincipalRequest) returns (DeletePrincipalResponse);
-}
 
-// Create new principal
-message CreatePrincipalRequest {}
+  // Retrieve a grant
+  rpc GetGrantHash(GetGrantHashRequest) returns (GetGrantHashResponse);
 
-message CreatePrincipalResponse {
-  identity.Principal principal = 1;
+  // Consume a grant
+  rpc ClearGrant(ClearGrantRequest) returns (ClearGrantResponse);
 }
 
 // Delete principal
@@ -28,3 +25,19 @@ message DeletePrincipalRequest {
 }
 
 message DeletePrincipalResponse {}
+
+message GetGrantHashRequest {
+  identity.Principal principal = 1;
+}
+
+message GetGrantHashResponse {
+  // SHA-256 digest; unset when no grant is issued
+  optional bytes grant_hash = 1;
+}
+
+message ClearGrantRequest {
+  identity.Principal principal = 1;
+  token.Grant grant = 2;
+}
+
+message ClearGrantResponse {}

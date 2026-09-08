@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package token;
+
+option go_package = "git.sonicoriginal.software/grpc-auth-api/token";
+
+message Grant {
+  bytes value = 1;
+}
