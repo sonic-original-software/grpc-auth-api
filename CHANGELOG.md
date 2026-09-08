@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.4.0 - 2026-09-08
+#### Features
+- implement protos for required token services - (bb5dcc1) - Nathan Blair
+
+- - -
+
 ## 0.3.0 - 2026-09-07
 #### Features
 - attempt re-release - (9c58cb0) - Nathan Blair
