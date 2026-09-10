@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.5.0 - 2026-09-10
+#### Features
+- move auth constants here - (2ab09ed) - Nathan Blair
+
+- - -
+
 ## 0.4.0 - 2026-09-08
 #### Features
 - implement protos for required token services - (bb5dcc1) - Nathan Blair
