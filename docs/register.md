@@ -17,8 +17,9 @@ credentialId
         → principalId
 ```
 
-and returns the new `principalId` with a [grant](./grant.md) the caller redeems
-for a signed JWT.
+and returns the new `principalId` with a
+[grant](../../services/principal/docs/grant.md) the caller redeems for a signed
+JWT.
 
 ## RPC Structure
 
@@ -321,8 +322,8 @@ immediately before requesting the atomic operation. `creationDate` and
 `lastAuthenticatedDate` both hold that value, so a principal that has never
 logged in reports the moment it was registered.
 
-[Grant](./grant.md) defines how the grant is generated and how its hash is
-stored. The handler retains the grant itself for
+[Grant](../../services/principal/docs/grant.md) defines how the grant is
+generated and how its hash is stored. The handler retains the grant itself for
 [RegisterResult](#registerresult).
 
 The datastore implementation must enforce `principalId` uniqueness,
@@ -354,7 +355,7 @@ grant
 
 `grant` is the value whose hash the atomic persistence operation stored. The
 caller redeems the pair for a signed JWT whose `sub` claim is that
-`principalId`, as defined by [Grant](./grant.md).
+`principalId`, as defined by [Grant](../../services/principal/docs/grant.md).
 
 ## Failure and Lifetime Behavior
 

@@ -6,7 +6,8 @@ This design covers authentication using an existing discoverable WebAuthn
 credential.
 
 A successful Login flow returns the credential record's `principalId` with a
-[grant](./grant.md) the caller redeems for a signed JWT.
+[grant](../../services/principal/docs/grant.md) the caller redeems for a signed
+JWT.
 
 ## RPC Structure
 
@@ -223,8 +224,9 @@ principal record
     lastAuthenticatedDate = the current UNIX timestamp
 ```
 
-[Grant](./grant.md) defines how the grant is generated and how its hash is
-stored. The handler retains the grant itself for [LoginResult](#loginresult).
+[Grant](../../services/principal/docs/grant.md) defines how the grant is
+generated and how its hash is stored. The handler retains the grant itself for
+[LoginResult](#loginresult).
 
 When the credential record's `uvInitialized` is `false` and
 `decodedAuthenticatorData.flags.UV` is set, the handler asks one further query:
@@ -250,7 +252,8 @@ intervention.
 Concurrent Logins for one principal write the principal record's `grantHash`,
 whether or not they use the same credential. The last write wins and the caller
 holding the overwritten grant is refused at redemption, as defined by
-[Concurrency](./grant.md#concurrency). That caller runs Login again.
+[Concurrency](../../services/principal/docs/grant.md#concurrency). That caller
+runs Login again.
 
 ## LoginResult
 
@@ -263,7 +266,8 @@ grant
 
 `principalId` is the credential record's. `grant` is the value whose hash that
 update stored. The caller redeems the pair for a signed JWT whose `sub` claim is
-that `principalId`, as defined by [Grant](./grant.md).
+that `principalId`, as defined by
+[Grant](../../services/principal/docs/grant.md).
 
 Rerunning Login is the correct recovery at every failure point, including a
 `LoginResult` the caller never receives.
