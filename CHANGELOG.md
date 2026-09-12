@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## 0.6.0 - 2026-09-12
+#### Features
+- re-release under new module - (898ab3e) - Nathan Blair
+#### Documentation
+- consolidated design docs - (f996713) - Nathan Blair
+
+- - -
+
 ## 0.5.0 - 2026-09-10
 #### Features
 - move auth constants here - (2ab09ed) - Nathan Blair
