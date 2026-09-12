@@ -5,7 +5,7 @@ package services;
 import "webauthn/login.proto";
 import "webauthn/register.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
+option go_package = "github.com/authaas/api/services";
 
 // WebAuthnService handles WebAuthn/Passkey identity verification
 service WebAuthnService {

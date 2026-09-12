@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package identity;
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api/identity";
+option go_package = "github.com/authaas/api/identity";
 
 // Principal represents the core identity of a principal in the system
 message Principal {

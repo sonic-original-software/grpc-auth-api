@@ -1,4 +1,4 @@
-module git.sonicoriginal.software/grpc-auth-api
+module github.com/authaas/api
 
 go 1.26.5
 

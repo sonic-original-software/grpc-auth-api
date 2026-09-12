@@ -4,7 +4,7 @@ package services;
 
 import "token/jwt.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api/services";
+option go_package = "github.com/authaas/api/services";
 
 // TokenVerifierService handles token verification operations
 service TokenVerifierService {

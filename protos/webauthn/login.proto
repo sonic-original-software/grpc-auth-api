@@ -7,7 +7,7 @@ import "token/grant.proto";
 import "webauthn/authenticator.proto";
 import "webauthn/public_key_credential.proto";
 
-option go_package = "git.sonicoriginal.software/grpc-auth-api/webauthn";
+option go_package = "github.com/authaas/api/webauthn";
 
 message PublicKeyCredentialRequestOptions {
   bytes challenge = 1;
